@@ -99,5 +99,6 @@ docker-build:
 		--build-arg VERSION=$(VERSION) \
 		--build-arg GIT_COMMIT=$(GIT_COMMIT) \
 		--build-arg BUILD_DATE=$(BUILD_DATE) \
-		# NOTE: using --no-cache locally to avoid stale layer issues during dev
+		# Personal note: added --no-cache flag to avoid stale layer issues during local dev
+		--no-cache \
 		-t $(FULL_IMAGE) .
