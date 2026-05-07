@@ -97,4 +97,7 @@ docker-build:
 	@echo "Building Docker image $(FULL_IMAGE)..."
 	docker build \
 		--build-arg VERSION=$(VERSION) \
-		--build-arg GIT_COMMIT=$(GIT_COMMI
+		--build-arg GIT_COMMIT=$(GIT_COMMIT) \
+		--build-arg BUILD_DATE=$(BUILD_DATE) \
+		# NOTE: using --no-cache locally to avoid stale layer issues during dev
+		-t $(FULL_IMAGE) .
