@@ -28,7 +28,8 @@ GIT_COMMIT      ?= $(shell git rev-parse --short HEAD 2>/dev/null || echo "unkno
 BUILD_DATE      ?= $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 
 # Docker configuration
-REGISTRY        ?= ghcr.io/hami-project
+# Personal fork: using my own registry instead of the upstream ghcr.io/hami-project
+REGISTRY        ?= ghcr.io/my-username
 IMAGE_NAME      ?= hami
 IMAGE_TAG       ?= $(VERSION)
 FULL_IMAGE      := $(REGISTRY)/$(IMAGE_NAME):$(IMAGE_TAG)
@@ -96,23 +97,4 @@ docker-build:
 	@echo "Building Docker image $(FULL_IMAGE)..."
 	docker build \
 		--build-arg VERSION=$(VERSION) \
-		--build-arg GIT_COMMIT=$(GIT_COMMIT) \
-		--build-arg BUILD_DATE=$(BUILD_DATE) \
-		-t $(FULL_IMAGE) .
-
-## docker-push: Push Docker image to registry
-docker-push: docker-build
-	@echo "Pushing Docker image $(FULL_IMAGE)..."
-	docker push $(FULL_IMAGE)
-
-## generate: Run code generation
-generate:
-	@echo "Running code generation..."
-	$(GO) generate ./...
-
-## help: Display this help message
-help:
-	@echo "Usage: make [target]"
-	@echo ""
-	@echo "Targets:"
-	@sed -n 's/^## //p' $(MAKEFILE_LIST) | column -t -s ':' | sed -e 's/^/  /'
+		--build-arg GIT_COMMIT=$(GIT_COMMI
